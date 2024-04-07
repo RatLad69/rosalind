@@ -26,3 +26,18 @@ func ReadData(dataFile string) (string, error) {
 
 	return string(dataset), nil
 }
+
+func Hamming(s1, s2 string) (int64, error) {
+	if len(s1) != len(s2) {
+		return 0, fmt.Errorf("strings not equal length")
+	}
+
+	diffs := int64(0)
+	for i := 0; i < len(s1); i++ {
+		if s1[i] != s2[i] {
+			diffs++
+		}
+	}
+
+	return diffs, nil
+}
