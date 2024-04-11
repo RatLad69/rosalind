@@ -41,3 +41,24 @@ func Hamming(s1, s2 string) (int64, error) {
 
 	return diffs, nil
 }
+
+func ParseFasta(raw string) map[string]string {
+	lines := strings.Fields(raw)
+	lines = append(lines, ">END")
+
+	var label, dna string
+	dnaStrings := make(map[string]string)
+	for i, line := range lines {
+		if strings.HasPrefix(line, ">") {
+			label = RmWhiteSpace(line)
+			dna = ""
+		} else {
+			dna += RmWhiteSpace(line)
+			if strings.HasPrefix(lines[i+1], ">") {
+				dnaStrings[label] = dna
+			}
+		}
+	}
+
+	return dnaStrings
+}
